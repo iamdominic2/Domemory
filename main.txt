@@ -177,7 +177,7 @@ WhenGreenFlagClicked()
     }
     Else
     {
-        Motion.GoToXY(-205, 145);
+        Motion.GoToXY(-205, 80);
         Call Text("Sorry, but due to technical reasons reguarding allowed keyboard key detections, this project cannot run properly in Scratch. Please check the description to run in Turbowarp!") italics("") bold("") cursor("");
     }
 }
