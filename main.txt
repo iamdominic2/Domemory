@@ -3,6 +3,7 @@
 WhenGreenFlagClicked()
 {
     List.DeleteAll(Keys);
+    List.Show(Right Click me to Import/Export learning data);
     Pen.SetPenColorToColor(#d1d1d1);
     Pen.Clear();
     LearnMode = 0;
@@ -630,6 +631,7 @@ Define Learn (warp=false)
     -CURITEM = 1;
     EDITMODE = 7;
     Call Scan DUE;
+    List.Hide(Right Click me to Import/Export learning data);
     Control.Wait(0.7);
     Repeat Until ((List.Length(Dueness) == 0) Or Sensing.KeyPressed(escape))
     {
@@ -742,6 +744,7 @@ Define Learn (warp=false)
         LearnMode = 0;
     }
     SECONDBAR = "";
+    List.Show(Right Click me to Import/Export learning data);
 }
 
 Define Megakey (warp=false)
@@ -1144,13 +1147,6 @@ Define Typer color (warp=true)
     }
 }
 
-
-//----- Orphaned blocks -----------------------------------------------------------------------------------------------
-
-List.Length(Dueness);
-
-floor((100 * ((Right Click me to Import/Export learning data[((1 * 6) + 4)] - 0) - Sensing.DaysSince2000())));
-
 //----- Variables -----------------------------------------------------------------------------------------------------
 
 -CURITEM = 1
@@ -1158,7 +1154,7 @@ A-text =
 Bold = 0
 CARDID = 1
 Command? = 0
-Count = 1
+Count = 174
 Counter = 40
 Counting = 1
 cursor location = 1
@@ -1174,7 +1170,7 @@ JOINSTRING NO = 1
 JOINSTRING STRING = N or PageDown
 lear = 0
 LearnMode = 0
-lettr = 8
+lettr = 1392
 Q-text = 
 Scanner-CT = 1
 SECONDBAR = 
@@ -1182,6 +1178,7 @@ STATUS BAR = [PRESENT]   Day=0  ID=1  Int=1  Due=0 (0.01)  Streak=0  AF=2.5
 TextEdit = 
 TextEditAns = 0
 Use sm2? = 0
+
 
 //----- Lists ---------------------------------------------------------------------------------------------------------
 
@@ -1672,6 +1669,7 @@ Right Click me to Import/Export learning data = {
     0
     2.5
 }
+
 
 //----- Costumes ------------------------------------------------------------------------------------------------------
 
