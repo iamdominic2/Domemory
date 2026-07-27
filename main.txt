@@ -15,7 +15,7 @@ WhenGreenFlagClicked()
     cursor location = 1;
     Command? = 0;
     LearnMode = 0;
-    -CURITEM = 1;
+    CURITEM = 1;
     Q-text = "";
     A-text = "";
     hideANS = 0;
@@ -59,13 +59,13 @@ WhenGreenFlagClicked()
                         Call Joinstring text(TextEdit) Location((cursor location - 2)) Increment(1) new("");
                         If (EDITMODE == 1)
                         {
-                            List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 1), JOINSTRING STRING);
+                            List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 1), JOINSTRING STRING);
                         }
                         Else
                         {
                             If (EDITMODE == 2)
                             {
-                                List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 2), JOINSTRING STRING);
+                                List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 2), JOINSTRING STRING);
                             }
                             Else
                             {
@@ -79,15 +79,15 @@ WhenGreenFlagClicked()
                 {
                     If ((TextEdit * 6) < List.Length(Right Click me to Import/Export learning data))
                     {
-                        -CURITEM = TextEdit;
+                        CURITEM = TextEdit;
                     }
                     EDITMODE = 0;
                     SECONDBAR = "";
                 }
             }
-            If (-CURITEM > ((List.Length(Right Click me to Import/Export learning data) / 6) - 1))
+            If (CURITEM > ((List.Length(Right Click me to Import/Export learning data) / 6) - 1))
             {
-                -CURITEM += -1;
+                CURITEM += -1;
             }
             If (Not ((Sensing.KeyPressed(enter) And (Not (Sensing.KeyPressed(shift))))))
             {
@@ -95,22 +95,22 @@ WhenGreenFlagClicked()
                 {
                     If (List.Length(Right Click me to Import/Export learning data) > 12)
                     {
-                        SECONDBAR = Operator.Join(Operator.Join("Delete item #", -CURITEM), "? Y/n");
+                        SECONDBAR = Operator.Join(Operator.Join("Delete item #", CURITEM), "? Y/n");
                         EDITMODE = 4;
                         Call Render;
                         Wait Until ((Sensing.KeyPressed(enter) Or Sensing.KeyPressed(space)) Or (Sensing.KeyPressed(y) Or (Sensing.KeyPressed(n) Or Sensing.KeyPressed(escape))));
                         If (Not ((Sensing.KeyPressed(n) Or Sensing.KeyPressed(escape))))
                         {
-                            List.DeleteItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 1));
-                            List.DeleteItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 1));
-                            List.DeleteItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 1));
-                            List.DeleteItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 1));
-                            List.DeleteItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 1));
-                            List.DeleteItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 1));
+                            List.DeleteItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 1));
+                            List.DeleteItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 1));
+                            List.DeleteItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 1));
+                            List.DeleteItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 1));
+                            List.DeleteItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 1));
+                            List.DeleteItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 1));
                         }
-                        If (-CURITEM > ((List.Length(Right Click me to Import/Export learning data) / 6) - 1))
+                        If (CURITEM > ((List.Length(Right Click me to Import/Export learning data) / 6) - 1))
                         {
-                            -CURITEM += -1;
+                            CURITEM += -1;
                         }
                         Call Q-A-Match;
                     }
@@ -130,16 +130,29 @@ WhenGreenFlagClicked()
                 {
                     If (Sensing.KeyPressed(r) And (EDITMODE == 0))
                     {
-                        SECONDBAR = Operator.Join(Operator.Join("Reset item #", -CURITEM), "? Y/n");
+                        If (Right Click me to Import/Export learning data[((CURITEM * 6) + 4)] == "Infinity")
+                        {
+                            SECONDBAR = Operator.Join(Operator.Join("Re-introduce item #", CURITEM), "? Y/n");
+                        }
+                        Else
+                        {
+                            SECONDBAR = Operator.Join(Operator.Join("Reset item #", CURITEM), "? Y/n");
+                        }
                         EDITMODE = 4;
                         Call Render;
                         Wait Until ((Sensing.KeyPressed(enter) Or Sensing.KeyPressed(space)) Or (Sensing.KeyPressed(y) Or (Sensing.KeyPressed(n) Or Sensing.KeyPressed(escape))));
                         If (Not ((Sensing.KeyPressed(n) Or Sensing.KeyPressed(escape))))
                         {
-                            List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 3), 1);
-                            List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 4), Sensing.DaysSince2000());
-                            List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 5), 0);
-                            List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 6), 2.5);
+                            List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 4), Sensing.DaysSince2000());
+                            If (Right Click me to Import/Export learning data[((CURITEM * 6) + 4)] == "Infinity")
+                            {
+                            }
+                            Else
+                            {
+                                List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 3), 1);
+                                List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 5), 0);
+                                List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 6), 2.5);
+                            }
                         }
                         SECONDBAR = "";
                         Wait Until (Not (((Sensing.KeyPressed(enter) Or Sensing.KeyPressed(space)) Or (Sensing.KeyPressed(y) Or (Sensing.KeyPressed(n) Or Sensing.KeyPressed(escape))))));
@@ -147,32 +160,49 @@ WhenGreenFlagClicked()
                     }
                     Else
                     {
-                        If (EDITMODE > 0)
+                        If (Sensing.KeyPressed(s) And (EDITMODE == 0))
                         {
-                            Call Key("enter");
-                            Call Megakey;
-                        }
-                        Call Render;
-                        If (EDITMODE == 1)
-                        {
-                            List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 1), TextEdit);
+                            SECONDBAR = Operator.Join(Operator.Join("Suspend item #", CURITEM), "? Y/n (R to reset & re-introduce)");
+                            EDITMODE = 4;
+                            Call Render;
+                            Wait Until ((Sensing.KeyPressed(enter) Or Sensing.KeyPressed(space)) Or (Sensing.KeyPressed(y) Or (Sensing.KeyPressed(n) Or Sensing.KeyPressed(escape))));
+                            If (Not ((Sensing.KeyPressed(n) Or Sensing.KeyPressed(escape))))
+                            {
+                                List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 4), "Infinity");
+                            }
+                            SECONDBAR = "";
+                            Wait Until (Not (((Sensing.KeyPressed(enter) Or Sensing.KeyPressed(space)) Or (Sensing.KeyPressed(y) Or (Sensing.KeyPressed(n) Or Sensing.KeyPressed(escape))))));
+                            EDITMODE = 0;
                         }
                         Else
                         {
-                            If (EDITMODE == 2)
+                            If (EDITMODE > 0)
                             {
-                                List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 2), TextEdit);
+                                Call Key("enter");
+                                Call Megakey;
+                            }
+                            Call Render;
+                            If (EDITMODE == 1)
+                            {
+                                List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 1), TextEdit);
                             }
                             Else
                             {
+                                If (EDITMODE == 2)
+                                {
+                                    List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 2), TextEdit);
+                                }
+                                Else
+                                {
+                                }
                             }
                         }
                     }
                 }
             }
-            If ((EDITMODE > 0) And (Right Click me to Import/Export learning data[((-CURITEM * 6) + 6)] == 0))
+            If ((EDITMODE > 0) And (Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] == 0))
             {
-                List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 6), 2.5);
+                List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 6), 2.5);
             }
         }
     }
@@ -272,7 +302,7 @@ WhenGreenFlagClicked()
     {
         If (LearnMode == 0)
         {
-            Finaltext = Operator.Join(Operator.Join("DOMEMORY v1.0 ███------------------------------------------------------------------------------E)dit Q)uestion A)nswer  G)o To P)rev N)ext  L)earn  Del)ete  C)reate         T)rade Q&A     D)uplicate      R)eset", Operator.Join("       I)nterval-Algorithm: SM-", (5 - (Right Click me to Import/Export learning data[6] * 3)))), "         ------------------------------------------------------------------------------   █ █");
+            Finaltext = Operator.Join(Operator.Join("DOMEMORY v1.0 ███------------------------------------------------------------------------------E)dit Q)uestion A)nswer  G)o To P)rev N)ext  L)earn  Del)ete  C)reate         T)rade Q&A  D)uplicate  R)eset", Operator.Join("   S)uspend   I)nterval-Algorithm: SM-", (5 - (Right Click me to Import/Export learning data[6] * 3)))), "         ------------------------------------------------------------------------------   █ █");
         }
         Else
         {
@@ -304,7 +334,7 @@ WhenKeyPressed(home)
     If (EDITMODE == 0)
     {
         EDITMODE = 0;
-        -CURITEM = 1;
+        CURITEM = 1;
         Call Q-A-Match;
     }
     Else
@@ -334,8 +364,8 @@ WhenKeyPressed(e)
     If (EDITMODE == 0)
     {
         EDITMODE = 1;
-        TextEdit = Right Click me to Import/Export learning data[((-CURITEM * 6) + 1)];
-        cursor location = (Variable.Length(Right Click me to Import/Export learning data[((-CURITEM * 6) + 1)]) + 1);
+        TextEdit = Right Click me to Import/Export learning data[((CURITEM * 6) + 1)];
+        cursor location = (Variable.Length(Right Click me to Import/Export learning data[((CURITEM * 6) + 1)]) + 1);
     }
 }
 
@@ -354,9 +384,9 @@ WhenKeyPressed(enter)
             {
                 Sensing.ResetTimer();
                 EDITMODE = 2;
-                TextEdit = Right Click me to Import/Export learning data[((-CURITEM * 6) + 2)];
-                JOINSTRING STRING = Right Click me to Import/Export learning data[((-CURITEM * 6) + 2)];
-                cursor location = (Variable.Length(Right Click me to Import/Export learning data[((-CURITEM * 6) + 2)]) + 1);
+                TextEdit = Right Click me to Import/Export learning data[((CURITEM * 6) + 2)];
+                JOINSTRING STRING = Right Click me to Import/Export learning data[((CURITEM * 6) + 2)];
+                cursor location = (Variable.Length(Right Click me to Import/Export learning data[((CURITEM * 6) + 2)]) + 1);
             }
         }
         Else
@@ -381,8 +411,8 @@ WhenKeyPressed(q)
         Sensing.ResetTimer();
         EDITMODE = 1;
         EDITQONLY = 1;
-        TextEdit = Right Click me to Import/Export learning data[((-CURITEM * 6) + 1)];
-        cursor location = (Variable.Length(Right Click me to Import/Export learning data[((-CURITEM * 6) + 1)]) + 1);
+        TextEdit = Right Click me to Import/Export learning data[((CURITEM * 6) + 1)];
+        cursor location = (Variable.Length(Right Click me to Import/Export learning data[((CURITEM * 6) + 1)]) + 1);
     }
     Else
     {
@@ -395,8 +425,8 @@ WhenKeyPressed(a)
     {
         Sensing.ResetTimer();
         EDITMODE = 2;
-        TextEdit = Right Click me to Import/Export learning data[((-CURITEM * 6) + 2)];
-        cursor location = (Variable.Length(Right Click me to Import/Export learning data[((-CURITEM * 6) + 2)]) + 1);
+        TextEdit = Right Click me to Import/Export learning data[((CURITEM * 6) + 2)];
+        cursor location = (Variable.Length(Right Click me to Import/Export learning data[((CURITEM * 6) + 2)]) + 1);
     }
     Else
     {
@@ -446,7 +476,7 @@ WhenKeyPressed(end)
 {
     If (EDITMODE == 0)
     {
-        -CURITEM = (List.Length(Right Click me to Import/Export learning data) / 6);
+        CURITEM = (List.Length(Right Click me to Import/Export learning data) / 6);
     }
 }
 
@@ -476,7 +506,7 @@ WhenKeyPressed(c)
     If (EDITMODE == 0)
     {
         Wait Until (Not (Sensing.KeyPressed(c)));
-        -CURITEM = (List.Length(Right Click me to Import/Export learning data) / 6);
+        CURITEM = (List.Length(Right Click me to Import/Export learning data) / 6);
         List.Add(Right Click me to Import/Export learning data, "");
         List.Add(Right Click me to Import/Export learning data, "");
         List.Add(Right Click me to Import/Export learning data, 0);
@@ -487,8 +517,8 @@ WhenKeyPressed(c)
         TextEdit = "";
         EDITQONLY = 0;
         cursor location = 1;
-        List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 1), "");
-        List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 2), "");
+        List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 1), "");
+        List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 2), "");
     }
 }
 
@@ -505,15 +535,15 @@ WhenKeyPressed(d)
     If (EDITMODE == 0)
     {
         Wait Until (Not (Sensing.KeyPressed(d)));
-        List.Add(Right Click me to Import/Export learning data, Right Click me to Import/Export learning data[((-CURITEM * 6) + 1)]);
-        List.Add(Right Click me to Import/Export learning data, Right Click me to Import/Export learning data[((-CURITEM * 6) + 2)]);
+        List.Add(Right Click me to Import/Export learning data, Right Click me to Import/Export learning data[((CURITEM * 6) + 1)]);
+        List.Add(Right Click me to Import/Export learning data, Right Click me to Import/Export learning data[((CURITEM * 6) + 2)]);
         List.Add(Right Click me to Import/Export learning data, 0);
         List.Add(Right Click me to Import/Export learning data, Sensing.DaysSince2000());
         List.Add(Right Click me to Import/Export learning data, 0);
         List.Add(Right Click me to Import/Export learning data, 2.5);
         EDITQONLY = 0;
         cursor location = 1;
-        -CURITEM = (List.Length(Right Click me to Import/Export learning data) / 6);
+        CURITEM = (List.Length(Right Click me to Import/Export learning data) / 6);
     }
 }
 
@@ -522,10 +552,10 @@ WhenKeyPressed(t)
     If (EDITMODE == 0)
     {
         Wait Until (Not (Sensing.KeyPressed(t)));
-        Q-text = Right Click me to Import/Export learning data[((-CURITEM * 6) + 2)];
-        A-text = Right Click me to Import/Export learning data[((-CURITEM * 6) + 1)];
-        List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 1), Q-text);
-        List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 2), A-text);
+        Q-text = Right Click me to Import/Export learning data[((CURITEM * 6) + 2)];
+        A-text = Right Click me to Import/Export learning data[((CURITEM * 6) + 1)];
+        List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 1), Q-text);
+        List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 2), A-text);
     }
 }
 
@@ -542,14 +572,14 @@ WhenKeyPressed(i)
 
 Define AF delta(string num) (warp=false)
 {
-    List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 6), (Operator.Round(((Right Click me to Import/Export learning data[((-CURITEM * 6) + 6)] + num) * 100)) / 100));
-    If (Right Click me to Import/Export learning data[((-CURITEM * 6) + 6)] > 4.2)
+    List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 6), (Operator.Round(((Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] + num) * 100)) / 100));
+    If (Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] > 4.2)
     {
-        List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 6), 4.2);
+        List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 6), 4.2);
     }
-    If (Right Click me to Import/Export learning data[((-CURITEM * 6) + 6)] < 1.5)
+    If (Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] < 1.5)
     {
-        List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 6), 1.5);
+        List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 6), 1.5);
     }
 }
 
@@ -628,14 +658,14 @@ Define Key(string s) (warp=false)
 
 Define Learn (warp=false)
 {
-    -CURITEM = 1;
+    CURITEM = 1;
     EDITMODE = 7;
     Call Scan DUE;
     List.Hide(Right Click me to Import/Export learning data);
-    Control.Wait(0.7);
+    Control.Wait(0.4);
     Repeat Until ((List.Length(Dueness) == 0) Or Sensing.KeyPressed(escape))
     {
-        -CURITEM = Dueness[1];
+        CURITEM = Dueness[1];
         STATUS BAR = "[REVIEW] Press ❤️to show answer";
         hideANS = 1;
         Call TyperB;
@@ -652,13 +682,13 @@ Define Learn (warp=false)
                 Call Joinstring text(TextEdit) Location((cursor location - 2)) Increment(1) new("");
                 If (EDITMODE == 1)
                 {
-                    List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 1), JOINSTRING STRING);
+                    List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 1), JOINSTRING STRING);
                 }
                 Else
                 {
                     If (EDITMODE == 2)
                     {
-                        List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 2), JOINSTRING STRING);
+                        List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 2), JOINSTRING STRING);
                     }
                     Else
                     {
@@ -675,10 +705,10 @@ Define Learn (warp=false)
         Wait Until ((((Sensing.KeyPressed(1) Or Sensing.KeyPressed(2)) Or (Sensing.KeyPressed(3) Or Sensing.KeyPressed(4))) Or Sensing.KeyPressed(enter)) Or (EDITMODE == 99));
         If Sensing.KeyPressed(1)
         {
-            List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 3), 1);
-            List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 5), 0);
+            List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 3), 1);
+            List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 5), 0);
             Call AF delta(-0.15);
-            List.Add(Dueness, -CURITEM);
+            List.Add(Dueness, CURITEM);
         }
         Else
         {
@@ -699,20 +729,20 @@ Define Learn (warp=false)
             }
             If (Right Click me to Import/Export learning data[6] == 1)
             {
-                List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 3), (Operator.Round(((((Right Click me to Import/Export learning data[((-CURITEM * 6) + 6)] * (Right Click me to Import/Export learning data[((-CURITEM * 6) + 3)] + (Sensing.DaysSince2000() - Right Click me to Import/Export learning data[((-CURITEM * 6) + 4)]))) * Operator.Random(0.9 , 1.1)) + ((Right Click me to Import/Export learning data[((-CURITEM * 6) + 3)] == 0) * (Sensing.DaysSince2000() - (Right Click me to Import/Export learning data[((-CURITEM * 6) + 4)] - 1)))) * 100)) / 100));
+                List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 3), (Operator.Round(((((Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] * (Right Click me to Import/Export learning data[((CURITEM * 6) + 3)] + (Sensing.DaysSince2000() - Right Click me to Import/Export learning data[((CURITEM * 6) + 4)]))) * Operator.Random(0.9 , 1.1)) + ((Right Click me to Import/Export learning data[((CURITEM * 6) + 3)] == 0) * (Sensing.DaysSince2000() - (Right Click me to Import/Export learning data[((CURITEM * 6) + 4)] - 1)))) * 100)) / 100));
             }
             Else
             {
-                List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 3), ((floor((Operator.Random(90.01 , 110) * ((Operator.Round((((Right Click me to Import/Export learning data[((-CURITEM * 6) + 3)] + (Sensing.DaysSince2000() - Right Click me to Import/Export learning data[((-CURITEM * 6) + 4)])) * ((OF MATRIX[(floor(((Right Click me to Import/Export learning data[((-CURITEM * 6) + 6)] / 0.3) - 4)) + ((Right Click me to Import/Export learning data[((-CURITEM * 6) + 5)] * 10) + 1))] * ((Right Click me to Import/Export learning data[((-CURITEM * 6) + 6)] - (floor((Right Click me to Import/Export learning data[((-CURITEM * 6) + 6)] * (10 / 3))) * 0.3)) / 0.3)) + OF MATRIX[(floor(((Right Click me to Import/Export learning data[((-CURITEM * 6) + 6)] / 0.3) - 4)) + (Right Click me to Import/Export learning data[((-CURITEM * 6) + 5)] * 10))])) * 100)) / 100) + ((Right Click me to Import/Export learning data[((-CURITEM * 6) + 3)] == 0) * (Sensing.DaysSince2000() - (Right Click me to Import/Export learning data[((-CURITEM * 6) + 4)] - 1)))))) * 1) / 100));
+                List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 3), ((floor((Operator.Random(90.01 , 110) * ((Operator.Round((((Right Click me to Import/Export learning data[((CURITEM * 6) + 3)] + (Sensing.DaysSince2000() - Right Click me to Import/Export learning data[((CURITEM * 6) + 4)])) * ((OF MATRIX[(floor(((Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] / 0.3) - 4)) + ((Right Click me to Import/Export learning data[((CURITEM * 6) + 5)] * 10) + 1))] * ((Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] - (floor((Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] * (10 / 3))) * 0.3)) / 0.3)) + OF MATRIX[(floor(((Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] / 0.3) - 4)) + (Right Click me to Import/Export learning data[((CURITEM * 6) + 5)] * 10))])) * 100)) / 100) + ((Right Click me to Import/Export learning data[((CURITEM * 6) + 3)] == 0) * (Sensing.DaysSince2000() - (Right Click me to Import/Export learning data[((CURITEM * 6) + 4)] - 1)))))) * 1) / 100));
             }
-            If (Right Click me to Import/Export learning data[((-CURITEM * 6) + 5)] == 0)
+            If (Right Click me to Import/Export learning data[((CURITEM * 6) + 5)] == 0)
             {
-                List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 3), (Operator.Random(101 , 121) / 100));
+                List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 3), (Operator.Random(101 , 121) / 100));
             }
-            List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 4), ((Sensing.DaysSince2000() + ) + Right Click me to Import/Export learning data[((-CURITEM * 6) + 3)]));
-            List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 5), (Right Click me to Import/Export learning data[((-CURITEM * 6) + 5)] + (Right Click me to Import/Export learning data[((-CURITEM * 6) + 5)] < 20)));
+            List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 4), ((Sensing.DaysSince2000() + ) + Right Click me to Import/Export learning data[((CURITEM * 6) + 3)]));
+            List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 5), (Right Click me to Import/Export learning data[((CURITEM * 6) + 5)] + (Right Click me to Import/Export learning data[((CURITEM * 6) + 5)] < 20)));
         }
-        List.DeleteItem(Dueness, List.IndexOf(Dueness, -CURITEM));
+        List.DeleteItem(Dueness, List.IndexOf(Dueness, CURITEM));
         Wait Until (Not (((((Sensing.KeyPressed(1) Or Sensing.KeyPressed(2)) Or (Sensing.KeyPressed(3) Or Sensing.KeyPressed(4))) Or Sensing.KeyPressed(enter)) Or (EDITMODE == 99))));
         If (List.Length(Dueness) > 0)
         {
@@ -858,13 +888,13 @@ Define Megakey (warp=false)
         Call Joinstring text(TextEdit) Location((cursor location - 1)) Increment(1) new("");
         If (EDITMODE == 1)
         {
-            List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 1), JOINSTRING STRING);
+            List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 1), JOINSTRING STRING);
         }
         Else
         {
             If (EDITMODE == 2)
             {
-                List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 2), JOINSTRING STRING);
+                List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 2), JOINSTRING STRING);
             }
             Else
             {
@@ -879,13 +909,13 @@ Define Megakey (warp=false)
         Call Joinstring text(TextEdit) Location((cursor location - 2)) Increment(1) new("");
         If (EDITMODE == 1)
         {
-            List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 1), JOINSTRING STRING);
+            List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 1), JOINSTRING STRING);
         }
         Else
         {
             If (EDITMODE == 2)
             {
-                List.ReplaceItem(Right Click me to Import/Export learning data, ((-CURITEM * 6) + 2), JOINSTRING STRING);
+                List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 2), JOINSTRING STRING);
             }
             Else
             {
@@ -898,19 +928,19 @@ Define Megakey (warp=false)
 
 Define Pgdown (warp=false)
 {
-    If (-CURITEM < ((List.Length(Right Click me to Import/Export learning data) / 6) - 1))
+    If (CURITEM < ((List.Length(Right Click me to Import/Export learning data) / 6) - 1))
     {
         EDITMODE = 0;
-        -CURITEM += 1;
+        CURITEM += 1;
     }
 }
 
 Define Pgup (warp=false)
 {
-    If (-CURITEM > 1)
+    If (CURITEM > 1)
     {
         EDITMODE = 0;
-        -CURITEM += -1;
+        CURITEM += -1;
     }
 }
 
@@ -942,26 +972,26 @@ Define statusbar (warp=false)
 {
     If (LearnMode == 1)
     {
-        STATUS BAR = Operator.Join("[REVIEW] ", Operator.Join(Operator.Join("Day=", (floor(((Sensing.DaysSince2000() - Right Click me to Import/Export learning data[1]) * 100)) / 100)), Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join("  ID=", -CURITEM), "  Int="), Right Click me to Import/Export learning data[((-CURITEM * 6) + 3)]), "  Due="), Operator.Join(Operator.Join(Operator.Join((floor(((Right Click me to Import/Export learning data[((-CURITEM * 6) + 4)] - Right Click me to Import/Export learning data[1]) * 100)) / 100), " ("), (floor((100 * ((Right Click me to Import/Export learning data[((-CURITEM * 6) + 4)] - 0) - Sensing.DaysSince2000()))) / -100)), "")), Operator.Join(Operator.Join(Operator.Join(Operator.Join(")  Streak=", Right Click me to Import/Export learning data[((-CURITEM * 6) + 5)]), "  AF="), Right Click me to Import/Export learning data[((-CURITEM * 6) + 6)]), " "))));
+        STATUS BAR = Operator.Join("[REVIEW] ", Operator.Join(Operator.Join("Day=", (floor(((Sensing.DaysSince2000() - Right Click me to Import/Export learning data[1]) * 100)) / 100)), Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join("  ID=", CURITEM), "  Int="), Right Click me to Import/Export learning data[((CURITEM * 6) + 3)]), "  Due="), Operator.Join(Operator.Join(Operator.Join((floor(((Right Click me to Import/Export learning data[((CURITEM * 6) + 4)] - Right Click me to Import/Export learning data[1]) * 100)) / 100), " ("), (floor((100 * ((Right Click me to Import/Export learning data[((CURITEM * 6) + 4)] - 0) - Sensing.DaysSince2000()))) / -100)), "")), Operator.Join(Operator.Join(Operator.Join(Operator.Join(")  Streak=", Right Click me to Import/Export learning data[((CURITEM * 6) + 5)]), "  AF="), Right Click me to Import/Export learning data[((CURITEM * 6) + 6)]), " "))));
     }
     Else
     {
-        If (Right Click me to Import/Export learning data[((-CURITEM * 6) + 6)] == 0)
+        If (Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] == 0)
         {
-            STATUS BAR = Operator.Join("[DELETED]   ", Operator.Join(Operator.Join("Day=", (floor(((Sensing.DaysSince2000() - Right Click me to Import/Export learning data[1]) * 100)) / 100)), Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join("  ID=", -CURITEM), "  Int="), Right Click me to Import/Export learning data[((-CURITEM * 6) + 3)]), "  Due="), Operator.Join(Operator.Join(Operator.Join((floor(((Right Click me to Import/Export learning data[((-CURITEM * 6) + 4)] - Right Click me to Import/Export learning data[1]) * 100)) / 100), " ("), (floor((100 * ((Right Click me to Import/Export learning data[((-CURITEM * 6) + 4)] - 0) - Sensing.DaysSince2000()))) / -100)), "")), Operator.Join(Operator.Join(Operator.Join(Operator.Join(")  Streak=", Right Click me to Import/Export learning data[((-CURITEM * 6) + 5)]), "  AF="), Right Click me to Import/Export learning data[((-CURITEM * 6) + 6)]), " "))));
+            STATUS BAR = Operator.Join("[DELETED]   ", Operator.Join(Operator.Join("Day=", (floor(((Sensing.DaysSince2000() - Right Click me to Import/Export learning data[1]) * 100)) / 100)), Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join("  ID=", CURITEM), "  Int="), Right Click me to Import/Export learning data[((CURITEM * 6) + 3)]), "  Due="), Operator.Join(Operator.Join(Operator.Join((floor(((Right Click me to Import/Export learning data[((CURITEM * 6) + 4)] - Right Click me to Import/Export learning data[1]) * 100)) / 100), " ("), (floor((100 * ((Right Click me to Import/Export learning data[((CURITEM * 6) + 4)] - 0) - Sensing.DaysSince2000()))) / -100)), "")), Operator.Join(Operator.Join(Operator.Join(Operator.Join(")  Streak=", Right Click me to Import/Export learning data[((CURITEM * 6) + 5)]), "  AF="), Right Click me to Import/Export learning data[((CURITEM * 6) + 6)]), " "))));
         }
         Else
         {
-            STATUS BAR = Operator.Join("[PRESENT]   ", Operator.Join(Operator.Join("Day=", (floor(((Sensing.DaysSince2000() - Right Click me to Import/Export learning data[1]) * 100)) / 100)), Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join("  ID=", -CURITEM), "  Int="), Right Click me to Import/Export learning data[((-CURITEM * 6) + 3)]), "  Due="), Operator.Join(Operator.Join(Operator.Join((floor(((Right Click me to Import/Export learning data[((-CURITEM * 6) + 4)] - Right Click me to Import/Export learning data[1]) * 100)) / 100), " ("), (floor((100 * ((Right Click me to Import/Export learning data[((-CURITEM * 6) + 4)] - 0) - Sensing.DaysSince2000()))) / -100)), "")), Operator.Join(Operator.Join(Operator.Join(Operator.Join(")  Streak=", Right Click me to Import/Export learning data[((-CURITEM * 6) + 5)]), "  AF="), Right Click me to Import/Export learning data[((-CURITEM * 6) + 6)]), " "))));
+            STATUS BAR = Operator.Join("[PRESENT]   ", Operator.Join(Operator.Join("Day=", (floor(((Sensing.DaysSince2000() - Right Click me to Import/Export learning data[1]) * 100)) / 100)), Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join("  ID=", CURITEM), "  Int="), Right Click me to Import/Export learning data[((CURITEM * 6) + 3)]), "  Due="), Operator.Join(Operator.Join(Operator.Join((floor(((Right Click me to Import/Export learning data[((CURITEM * 6) + 4)] - Right Click me to Import/Export learning data[1]) * 100)) / 100), " ("), (floor((100 * ((Right Click me to Import/Export learning data[((CURITEM * 6) + 4)] - 0) - Sensing.DaysSince2000()))) / -100)), "")), Operator.Join(Operator.Join(Operator.Join(Operator.Join(")  Streak=", Right Click me to Import/Export learning data[((CURITEM * 6) + 5)]), "  AF="), Right Click me to Import/Export learning data[((CURITEM * 6) + 6)]), " "))));
             If (EDITMODE > 0)
             {
                 If (INSMODE > 0)
                 {
-                    STATUS BAR = Operator.Join("[OVERWRITE] ", Operator.Join(Operator.Join("Day=", (floor(((Sensing.DaysSince2000() - Right Click me to Import/Export learning data[1]) * 100)) / 100)), Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join("  ID=", -CURITEM), "  Int="), Right Click me to Import/Export learning data[((-CURITEM * 6) + 3)]), "  Due="), Operator.Join(Operator.Join(Operator.Join((floor(((Right Click me to Import/Export learning data[((-CURITEM * 6) + 4)] - Right Click me to Import/Export learning data[1]) * 100)) / 100), " ("), (floor((100 * ((Right Click me to Import/Export learning data[((-CURITEM * 6) + 4)] - 0) - Sensing.DaysSince2000()))) / -100)), "")), Operator.Join(Operator.Join(Operator.Join(Operator.Join(")  Streak=", Right Click me to Import/Export learning data[((-CURITEM * 6) + 5)]), "  AF="), Right Click me to Import/Export learning data[((-CURITEM * 6) + 6)]), " "))));
+                    STATUS BAR = Operator.Join("[OVERWRITE] ", Operator.Join(Operator.Join("Day=", (floor(((Sensing.DaysSince2000() - Right Click me to Import/Export learning data[1]) * 100)) / 100)), Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join("  ID=", CURITEM), "  Int="), Right Click me to Import/Export learning data[((CURITEM * 6) + 3)]), "  Due="), Operator.Join(Operator.Join(Operator.Join((floor(((Right Click me to Import/Export learning data[((CURITEM * 6) + 4)] - Right Click me to Import/Export learning data[1]) * 100)) / 100), " ("), (floor((100 * ((Right Click me to Import/Export learning data[((CURITEM * 6) + 4)] - 0) - Sensing.DaysSince2000()))) / -100)), "")), Operator.Join(Operator.Join(Operator.Join(Operator.Join(")  Streak=", Right Click me to Import/Export learning data[((CURITEM * 6) + 5)]), "  AF="), Right Click me to Import/Export learning data[((CURITEM * 6) + 6)]), " "))));
                 }
                 Else
                 {
-                    STATUS BAR = Operator.Join("[INSERT]    ", Operator.Join(Operator.Join("Day=", (floor(((Sensing.DaysSince2000() - Right Click me to Import/Export learning data[1]) * 100)) / 100)), Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join("  ID=", -CURITEM), "  Int="), Right Click me to Import/Export learning data[((-CURITEM * 6) + 3)]), "  Due="), Operator.Join(Operator.Join(Operator.Join((floor(((Right Click me to Import/Export learning data[((-CURITEM * 6) + 4)] - Right Click me to Import/Export learning data[1]) * 100)) / 100), " ("), (floor((100 * ((Right Click me to Import/Export learning data[((-CURITEM * 6) + 4)] + 0) - Sensing.DaysSince2000()))) / -100)), "")), Operator.Join(Operator.Join(Operator.Join(Operator.Join(")  Streak=", Right Click me to Import/Export learning data[((-CURITEM * 6) + 5)]), "  AF="), Right Click me to Import/Export learning data[((-CURITEM * 6) + 6)]), " "))));
+                    STATUS BAR = Operator.Join("[INSERT]    ", Operator.Join(Operator.Join("Day=", (floor(((Sensing.DaysSince2000() - Right Click me to Import/Export learning data[1]) * 100)) / 100)), Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join(Operator.Join("  ID=", CURITEM), "  Int="), Right Click me to Import/Export learning data[((CURITEM * 6) + 3)]), "  Due="), Operator.Join(Operator.Join(Operator.Join((floor(((Right Click me to Import/Export learning data[((CURITEM * 6) + 4)] - Right Click me to Import/Export learning data[1]) * 100)) / 100), " ("), (floor((100 * ((Right Click me to Import/Export learning data[((CURITEM * 6) + 4)] + 0) - Sensing.DaysSince2000()))) / -100)), "")), Operator.Join(Operator.Join(Operator.Join(Operator.Join(")  Streak=", Right Click me to Import/Export learning data[((CURITEM * 6) + 5)]), "  AF="), Right Click me to Import/Export learning data[((CURITEM * 6) + 6)]), " "))));
                 }
             }
             Else
@@ -1081,10 +1111,10 @@ Define TyperB (warp=true)
     Call Text("------------------------------------------------------------------------------") italics("") bold("") cursor("");
     Motion.GoToXY(-235, 50);
     Counting = 0;
-    Repeat ((Variable.Length(Right Click me to Import/Export learning data[((-CURITEM * 6) + 1)]) + 1))
+    Repeat ((Variable.Length(Right Click me to Import/Export learning data[((CURITEM * 6) + 1)]) + 1))
     {
         Counting += 1;
-        Call Text(Operator.LetterOf(Operator.Join(Right Click me to Import/Export learning data[((-CURITEM * 6) + 1)], " "), Counting)) italics("") bold("") cursor(1);
+        Call Text(Operator.LetterOf(Operator.Join(Right Click me to Import/Export learning data[((CURITEM * 6) + 1)], " "), Counting)) italics("") bold("") cursor(1);
     }
     Motion.GoToXY(-235, -150);
     Counting = 0;
@@ -1119,17 +1149,17 @@ Define Typer color (warp=true)
     Call Text("------------------------------------------------------------------------------") italics("") bold("") cursor("");
     Motion.GoToXY(-235, 50);
     Counting = 0;
-    Repeat ((Variable.Length(Right Click me to Import/Export learning data[((-CURITEM * 6) + 1)]) + 1))
+    Repeat ((Variable.Length(Right Click me to Import/Export learning data[((CURITEM * 6) + 1)]) + 1))
     {
         Counting += 1;
-        Call Text(Operator.LetterOf(Operator.Join(Right Click me to Import/Export learning data[((-CURITEM * 6) + 1)], " "), Counting)) italics("") bold("") cursor(1);
+        Call Text(Operator.LetterOf(Operator.Join(Right Click me to Import/Export learning data[((CURITEM * 6) + 1)], " "), Counting)) italics("") bold("") cursor(1);
     }
     Motion.GoToXY(-235, -50);
     Counting = 0;
-    Repeat (((Variable.Length(Right Click me to Import/Export learning data[((-CURITEM * 6) + 2)]) + 1) * (Not ((EDITMODE == 6)))))
+    Repeat (((Variable.Length(Right Click me to Import/Export learning data[((CURITEM * 6) + 2)]) + 1) * (Not ((EDITMODE == 6)))))
     {
         Counting += 1;
-        Call Text(Operator.LetterOf(Operator.Join(Right Click me to Import/Export learning data[((-CURITEM * 6) + 2)], " "), Counting)) italics("") bold("") cursor(2);
+        Call Text(Operator.LetterOf(Operator.Join(Right Click me to Import/Export learning data[((CURITEM * 6) + 2)], " "), Counting)) italics("") bold("") cursor(2);
     }
     Motion.GoToXY(-235, -150);
     Counting = 0;
@@ -1149,7 +1179,6 @@ Define Typer color (warp=true)
 
 //----- Variables -----------------------------------------------------------------------------------------------------
 
--CURITEM = 1
 A-text = 
 Bold = 0
 CARDID = 1
@@ -1157,6 +1186,7 @@ Command? = 0
 Count = 174
 Counter = 40
 Counting = 1
+CURITEM = 1
 cursor location = 1
 Down = 0
 EDITMODE = 0
@@ -1178,7 +1208,6 @@ STATUS BAR = [PRESENT]   Day=0  ID=1  Int=1  Due=0 (0.01)  Streak=0  AF=2.5
 TextEdit = 
 TextEditAns = 0
 Use sm2? = 0
-
 
 //----- Lists ---------------------------------------------------------------------------------------------------------
 
@@ -1599,7 +1628,7 @@ Right Click me to Import/Export learning data = {
     How to go to the next page?
     N or PageDown
     1
-    9703.243881875
+    9704.0112816435
     0
     2.5
     How to go to the previous page?
@@ -1669,7 +1698,6 @@ Right Click me to Import/Export learning data = {
     0
     2.5
 }
-
 
 //----- Costumes ------------------------------------------------------------------------------------------------------
 
