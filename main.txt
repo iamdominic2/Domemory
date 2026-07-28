@@ -733,7 +733,7 @@ Define Learn (warp=false)
             }
             Else
             {
-                List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 3), ((floor((Operator.Random(90.01 , 110) * ((Operator.Round((((Right Click me to Import/Export learning data[((CURITEM * 6) + 3)] + (Sensing.DaysSince2000() - Right Click me to Import/Export learning data[((CURITEM * 6) + 4)])) * ((OF MATRIX[(floor(((Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] / 0.3) - 4)) + ((Right Click me to Import/Export learning data[((CURITEM * 6) + 5)] * 10) + 1))] * ((Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] - (floor((Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] * (10 / 3))) * 0.3)) / 0.3)) + OF MATRIX[(floor(((Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] / 0.3) - 4)) + (Right Click me to Import/Export learning data[((CURITEM * 6) + 5)] * 10))])) * 100)) / 100) + ((Right Click me to Import/Export learning data[((CURITEM * 6) + 3)] == 0) * (Sensing.DaysSince2000() - (Right Click me to Import/Export learning data[((CURITEM * 6) + 4)] - 1)))))) * 1) / 100));
+                List.ReplaceItem(Right Click me to Import/Export learning data, ((CURITEM * 6) + 3), ((floor((Operator.Random(90.01 , 110) * ((Operator.Round((((Right Click me to Import/Export learning data[((CURITEM * 6) + 3)] + (Sensing.DaysSince2000() - Right Click me to Import/Export learning data[((CURITEM * 6) + 4)])) * (((OF MATRIX[(floor(((Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] / 0.3) - 4)) + ((Right Click me to Import/Export learning data[((CURITEM * 6) + 5)] * 10) + 1))] - OF MATRIX[(floor(((Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] / 0.3) - 4)) + (Right Click me to Import/Export learning data[((CURITEM * 6) + 5)] * 10))]) * ((Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] - (floor((Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] / 0.3)) * 0.3)) / 0.3)) + OF MATRIX[(floor(((Right Click me to Import/Export learning data[((CURITEM * 6) + 6)] / 0.3) - 4)) + (Right Click me to Import/Export learning data[((CURITEM * 6) + 5)] * 10))])) * 100)) / 100) + ((Right Click me to Import/Export learning data[((CURITEM * 6) + 3)] == 0) * (Sensing.DaysSince2000() - (Right Click me to Import/Export learning data[((CURITEM * 6) + 4)] - 1)))))) * 1) / 100));
             }
             If (Right Click me to Import/Export learning data[((CURITEM * 6) + 5)] == 0)
             {
@@ -1176,14 +1176,13 @@ Define Typer color (warp=true)
         Call Text(Operator.LetterOf(Operator.Join(SECONDBAR, " "), Counting)) italics("") bold("") cursor(6);
     }
 }
-
 //----- Variables -----------------------------------------------------------------------------------------------------
 
 A-text = 
 Bold = 0
 CARDID = 1
 Command? = 0
-Count = 174
+Count = 1
 Counter = 40
 Counting = 1
 CURITEM = 1
@@ -1191,7 +1190,7 @@ cursor location = 1
 Down = 0
 EDITMODE = 0
 EDITQONLY = 0
-Finaltext = DOMEMORY v1.0 ███------------------------------------------------------------------------------E)dit Q)uestion A)nswer  G)o To P)rev N)ext  L)earn  Del)ete  C)reate         T)rade Q&A     D)uplicate      R)eset       I)nterval-Algorithm: SM-5         ------------------------------------------------------------------------------   █ █
+Finaltext = DOMEMORY v1.0 ███------------------------------------------------------------------------------E)dit Q)uestion A)nswer  G)o To P)rev N)ext  L)earn  Del)ete  C)reate         T)rade Q&A  D)uplicate  R)eset   S)uspend   I)nterval-Algorithm: SM-5         ------------------------------------------------------------------------------   █ █
 Gotodialog = Go to which?
 hideANS = 0
 INSMODE = 0
@@ -1200,7 +1199,7 @@ JOINSTRING NO = 1
 JOINSTRING STRING = N or PageDown
 lear = 0
 LearnMode = 0
-lettr = 1392
+lettr = 8
 Q-text = 
 Scanner-CT = 1
 SECONDBAR = 
@@ -1248,6 +1247,9 @@ Change = {
     -1
 }
 Dueness = { 
+    2
+    3
+    4
     5
     6
     7
@@ -1619,7 +1621,7 @@ reginfo = {
     1111100001000010000101001111110100000000
 }
 Right Click me to Import/Export learning data = { 
-    9703.243881875
+    9705.6349913194
     0.01
     0.2
     1.781
@@ -1628,73 +1630,73 @@ Right Click me to Import/Export learning data = {
     How to go to the next page?
     N or PageDown
     1
-    9704.0112816435
+    9705.6349913194
     0
     2.5
     How to go to the previous page?
     P or PageUp
     1
-    9703.243881875
+    9705.6349913194
     0
     2.5
     How to edit texts?
     E, Q, or A
     1
-    9703.243881875
+    9705.6349913194
     0
     2.5
     How to insert a new line in text editing?
     Shift+Enter
     1
-    9703.243881875
+    9705.6349913194
     0
     2.5
     REMEMBER TO SAVE & LOAD YOUR LEARNING! HOW?
     Right Click top-right corner -> Import or Export
     1
-    9703.243881875
+    9705.6349913194
     0
     2.5
     What is spreading cards over time?
     Spaced repetition
     1
-    9703.243881875
+    9705.6349913194
     0
     2.5
     What is it when you are tested on this material?
     Active recall, or retrieval practice
     1
-    9703.243881875
+    9705.6349913194
     0
     2.5
     How to delete an item?
     Del
     1
-    9703.243881875
+    9705.6349913194
     0
     2.5
     How to add a new item?
     C
     1
-    9703.243881875
+    9705.6349913194
     0
     2.5
     How to go to the last page?
     End
     1
-    9703.243881875
+    9705.6349913194
     0
     2.5
     How to go to the first page?
     Home
     1
-    9703.243881875
+    9705.6349913194
     0
     2.5
     How do you get tested on this material?
     L
     1
-    9703.243881875
+    9705.6349913194
     0
     2.5
 }
