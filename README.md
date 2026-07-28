@@ -8,3 +8,6 @@ Classic spaced repetition active recall. For students and learners alike.
 ![Presentation](presentation.png)
 * SM-5 optimal factor matrix derived from about 19,000 repetitions: of me using SuperMemo itself:<BR>
 ![OF-Matrix](12406.jpg)
+
+## Bug fixes
+1.1: *Double count interval bug fixed!*
