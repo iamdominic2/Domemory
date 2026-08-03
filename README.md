@@ -10,4 +10,4 @@ Classic spaced repetition active recall. For students and learners alike.
 ![OF-Matrix](12406.jpg)
 
 ## Bug fixes
-1.1: *Double count interval bug fixed!*
+Wrong linear interpolation bug fixed, freeze on G + Item #0 fixed, undesirible registeration of "q" and "a" into text fields when using them as quick triggers to edit fixed.
